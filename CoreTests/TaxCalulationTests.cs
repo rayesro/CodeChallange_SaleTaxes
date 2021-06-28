@@ -2,6 +2,7 @@
 using Core.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CoreTests
 {
@@ -61,6 +62,26 @@ namespace CoreTests
              taxingService.CalculateTaxesFor(product);
             //Assert
             Assert.AreEqual(32.19, product.TotalPrice);
+        }
+
+        [Test]
+        public void Given_AProduct_When_Adding2DifferentTaxesTwice_Then_ProductShouldOnlyContainsTwoTaxes()
+        {
+            //Arrange
+            var product = new Product("Music CD", 27.99m);
+
+            //Act
+            product.AddTax(TaxTypes.IMPORT_TAX);
+            product.AddTax(TaxTypes.BASIC_SALE_TAX);
+            product.AddTax(TaxTypes.IMPORT_TAX);
+            product.AddTax(TaxTypes.BASIC_SALE_TAX);
+
+            var basicTaxesCount = product.Taxes.Where(t => t == TaxTypes.BASIC_SALE_TAX).ToList().Count;
+            var importTaxesCount = product.Taxes.Where(t => t == TaxTypes.IMPORT_TAX).ToList().Count;
+            //Assert
+            Assert.AreEqual(2, product.Taxes.Count);
+            Assert.AreEqual(1, basicTaxesCount);
+            Assert.AreEqual(1, importTaxesCount);
         }
     }
 }
