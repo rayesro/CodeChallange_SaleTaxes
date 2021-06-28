@@ -1,10 +1,9 @@
 ﻿using Application.Interface.Services;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
-using Application.Repositories;
 using Application.Services;
-using Domain;
 using Domain.Entities;
+using Infrastructure.Memory.Repositories;
 using NUnit.Framework;
 using System.Collections.Generic;
 

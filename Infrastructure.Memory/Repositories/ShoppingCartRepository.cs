@@ -1,11 +1,10 @@
 ﻿using Application.Interfaces.Repositories;
 using Domain.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Application.Repositories
+namespace Infrastructure.Memory.Repositories
 {
     public class ShoppingCartRepository : IShoppingCartRepository
     {
@@ -13,11 +12,12 @@ namespace Application.Repositories
 
         public ShoppingCartRepository()
         {
+            ItemList = new List<ShoppingCartItem>();
         }
 
         public Task<ShoppingCartItem> AddProductAsync(Product product)
         {
-            var currentItem = ItemList.SingleOrDefault(sp => sp.Item.Name == p.Name);
+            var currentItem = ItemList.SingleOrDefault(sp => sp.Item.Name == product.Name);
             if (currentItem == null)
                 ItemList.Add(new ShoppingCartItem(product));
             else
