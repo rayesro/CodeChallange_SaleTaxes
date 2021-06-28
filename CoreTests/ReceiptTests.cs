@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
 
@@ -7,11 +8,15 @@ namespace CoreTests
     public class ReceiptTests
     {
         ReceiptService receiptService = null;
+        ShoppingCart shoppingCart = null;
+        TaxingService taxingService = null;
 
         [SetUp]
         public void Setup()
         {
-            receiptService = new ReceiptService(new TaxingService());
+            shoppingCart = new ShoppingCart();
+            taxingService = new TaxingService();
+            receiptService = new ReceiptService(shoppingCart);
         }
 
         [Test]
@@ -22,13 +27,14 @@ namespace CoreTests
                 Sales Taxes: TotalSaleTaxes
                 Total: Sum of TotalProductPrice and TotalSaleTaxes
             */
-            //Arrange
+            
             var product = new Product("Music CD", 14.99m);
-
-            //Act
-            receiptService.AddProductToShoppingCart(product);
+            shoppingCart.AddProduct(product);
+            taxingService.AssignTaxesTo(product);
+            taxingService.CalculateTaxesFor(product);
+            
             var receipt = receiptService.GetReceipt();
-            //Assert
+            
             StringAssert.Contains("Music CD: 16.49", receipt);
             StringAssert.Contains("Sales Taxes: 1.50", receipt);
             StringAssert.Contains("Total: 16.49", receipt);
@@ -42,15 +48,23 @@ namespace CoreTests
                 Sales Taxes: TotalSaleTaxes
                 Total: Sum of TotalProductPrice and TotalSaleTaxes
             */
-            //Arrange
+            
             var product1 = new Product("Book", 12.49m);
             var product2 = new Product("Book", 12.49m);
 
-            //Act
-            receiptService.AddProductToShoppingCart(product1);
-            receiptService.AddProductToShoppingCart(product2);
+            
+            shoppingCart.AddProduct(product1);
+            shoppingCart.AddProduct(product2);
+
+            taxingService.AssignTaxesTo(product1);
+            taxingService.CalculateTaxesFor(product1);
+
+            taxingService.AssignTaxesTo(product2);
+            taxingService.CalculateTaxesFor(product2);
+
+
             var receipt = receiptService.GetReceipt();
-            //Assert
+            
             StringAssert.Contains("Book: 24.98 (2 @ 12.49)", receipt);
             StringAssert.Contains("Sales Taxes: 0", receipt);
             StringAssert.Contains("Total: 24.98", receipt);
@@ -121,15 +135,19 @@ namespace CoreTests
                 Sales Taxes: TotalSaleTaxes
                 Total: Sum of TotalProductPrice and TotalSaleTaxes
             */
-            //Arrange
+            
             foreach (var item in list)
             {
-                receiptService.AddProductToShoppingCart(item);
+                shoppingCart.AddProduct(item);
+                taxingService.AssignTaxesTo(item);
+                taxingService.CalculateTaxesFor(item);
             }
 
-            //Act
+            
+
+            
             var receipt = receiptService.GetReceipt();
-            //Assert
+            
             foreach (var item in expectedItemsOnReceipt)
             {
                 StringAssert.Contains(item, receipt);

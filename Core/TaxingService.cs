@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,7 +30,7 @@ namespace Core
                 product.AddTax(TaxTypes.BASIC_SALE_TAX);
         }
 
-        public void CalculateTaxes(Product product)
+        public void CalculateTaxesFor(Product product)
         {
             decimal saleTaxes = 0;
 

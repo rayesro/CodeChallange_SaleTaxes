@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -31,11 +32,14 @@ namespace ConsoleApp
             }
 
             TaxingService taxingService = new TaxingService();
-            ReceiptService receiptService = new ReceiptService(taxingService);
+            ShoppingCart shoppingCart = new ShoppingCart();
+            ReceiptService receiptService = new ReceiptService(shoppingCart);
 
             foreach (var product in productList)
             {
-                receiptService.AddProductToShoppingCart(product);
+                shoppingCart.AddProduct(product);
+                taxingService.AssignTaxesTo(product);
+                taxingService.CalculateTaxesFor(product);
             }
 
             Console.WriteLine(receiptService.GetReceipt());
