@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Services;
+﻿using Application.Interfaces.Repositories;
+using Application.Interfaces.Services;
 using Domain.Entities;
 using System.Text;
 
@@ -6,9 +7,9 @@ namespace Application.Services
 {
     public class ReceiptConsolePrintingService : IReceiptPrintingService<string>
     {
-        public ShoppingCart _shoppingCart;
+        public IShoppingCartRepository _shoppingCart;
 
-        public ReceiptConsolePrintingService(ShoppingCart shoppingCart)
+        public ReceiptConsolePrintingService(IShoppingCartRepository shoppingCart)
         {
             _shoppingCart = shoppingCart;
         }

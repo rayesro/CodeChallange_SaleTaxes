@@ -1,5 +1,6 @@
 ﻿using Application.Interface.Services;
 using Application.Interfaces.Services;
+using Application.Repositories;
 using Application.Services;
 using Domain;
 using Domain.Entities;
@@ -35,12 +36,12 @@ namespace ConsoleApp
             }
 
             ITaxingService taxingService = new TaxingService();
-            ShoppingCart shoppingCart = new ShoppingCart();
+            var shoppingCart = new ShoppingCartRepository();
             var receiptService = new ReceiptConsolePrintingService(shoppingCart);
 
             foreach (var product in productList)
             {
-                shoppingCart.AddProduct(product);
+                shoppingCart.AddProductAsync(product);
                 taxingService.AssignTaxesTo(product);
                 taxingService.CalculateTaxesFor(product);
             }

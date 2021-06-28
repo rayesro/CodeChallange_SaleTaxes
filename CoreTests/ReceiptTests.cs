@@ -1,5 +1,7 @@
 ﻿using Application.Interface.Services;
+using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
+using Application.Repositories;
 using Application.Services;
 using Domain;
 using Domain.Entities;
@@ -11,13 +13,13 @@ namespace DomainTests
     public class ReceiptTests
     {
         IReceiptPrintingService<string> receiptService = null;
-        ShoppingCart shoppingCart = null;
+        IShoppingCartRepository shoppingCart = null;
         ITaxingService taxingService = null;
 
         [SetUp]
         public void Setup()
         {
-            shoppingCart = new ShoppingCart();
+            shoppingCart = new ShoppingCartRepository();
             taxingService = new TaxingService();
             receiptService = new ReceiptConsolePrintingService(shoppingCart);
         }
@@ -32,7 +34,7 @@ namespace DomainTests
             */
             
             var product = new Product("Music CD", 14.99m);
-            shoppingCart.AddProduct(product);
+            shoppingCart.AddProductAsync(product);
             taxingService.AssignTaxesTo(product);
             taxingService.CalculateTaxesFor(product);
             
@@ -56,8 +58,8 @@ namespace DomainTests
             var product2 = new Product("Book", 12.49m);
 
             
-            shoppingCart.AddProduct(product1);
-            shoppingCart.AddProduct(product2);
+            shoppingCart.AddProductAsync(product1);
+            shoppingCart.AddProductAsync(product2);
 
             taxingService.AssignTaxesTo(product1);
             taxingService.CalculateTaxesFor(product1);
@@ -141,7 +143,7 @@ namespace DomainTests
             
             foreach (var item in list)
             {
-                shoppingCart.AddProduct(item);
+                shoppingCart.AddProductAsync(item);
                 taxingService.AssignTaxesTo(item);
                 taxingService.CalculateTaxesFor(item);
             }
