@@ -6,7 +6,8 @@ namespace Application.Interfaces.Repositories
 {
     public interface IShoppingCartRepository
     {
-        public List<ShoppingCartItem> ItemList { get; }
         Task<ShoppingCartItem> AddProductAsync(Product item);
+
+        Task<List<ShoppingCartItem>> GetShoppingCartListAsync();
     }
 }

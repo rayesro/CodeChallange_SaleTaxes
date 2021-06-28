@@ -20,7 +20,8 @@ namespace Application.Services
 
             decimal total = 0;
             decimal saleTaxes = 0;
-            foreach (var cartItem in _shoppingCart.ItemList)
+            var list = _shoppingCart.GetShoppingCartListAsync().Result;
+            foreach (var cartItem in list)
             {
                 var currentTotal = cartItem.Item.TotalPrice * cartItem.Quantity;
 

@@ -8,7 +8,7 @@ namespace Infrastructure.Memory.Repositories
 {
     public class ShoppingCartRepository : IShoppingCartRepository
     {
-        public List<ShoppingCartItem> ItemList { get; }
+        private List<ShoppingCartItem> ItemList { get; }
 
         public ShoppingCartRepository()
         {
@@ -25,5 +25,8 @@ namespace Infrastructure.Memory.Repositories
 
             return Task.FromResult(currentItem);
         }
+
+        public Task<List<ShoppingCartItem>> GetShoppingCartListAsync()
+            => Task.FromResult(ItemList);
     }
 }
