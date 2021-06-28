@@ -23,7 +23,7 @@ namespace ConsoleApp
                 input.Add(cmdInput);
             } while (true);
 
-            InputHandlerService inputHandlerService = new InputHandlerService();
+            var inputHandlerService = new ConsoleInputHandlerService();
 
             var productList = new List<Product>();
             foreach (var item in input)

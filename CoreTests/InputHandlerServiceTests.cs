@@ -1,4 +1,6 @@
-﻿using Domain;
+﻿using Application.Interfaces.Services;
+using Application.Services;
+using Domain;
 using Domain.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -7,12 +9,12 @@ namespace DomainTests
 {
     public class InputHandlerServiceTests
     {
-        InputHandlerService inputHandlerService = null;
+        IInputHandlerService<string> inputHandlerService = null;
 
         [SetUp]
         public void Setup()
         {
-            inputHandlerService = new InputHandlerService();
+            inputHandlerService = new ConsoleInputHandlerService();
         }
 
         public static IEnumerable<TestCaseData> ProductInputTests()
