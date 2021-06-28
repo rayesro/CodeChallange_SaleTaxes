@@ -1,19 +1,19 @@
-﻿using Domain.Entities;
+﻿using Application.Interfaces.Services;
+using Domain.Entities;
 using System.Text;
 
-namespace Domain
+namespace Application.Services
 {
-    public class ReceiptService
+    public class ReceiptConsolePrintingService : IReceiptPrintingService<string>
     {
         public ShoppingCart _shoppingCart;
 
-        public ReceiptService(ShoppingCart shoppingCart)
+        public ReceiptConsolePrintingService(ShoppingCart shoppingCart)
         {
             _shoppingCart = shoppingCart;
         }
 
-
-        public string GetReceipt()
+        public string PrintReceipt()
         {
             StringBuilder sb = new StringBuilder();
 

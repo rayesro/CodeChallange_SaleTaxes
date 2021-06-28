@@ -1,4 +1,5 @@
 ﻿using Application.Interface.Services;
+using Application.Interfaces.Services;
 using Application.Services;
 using Domain;
 using Domain.Entities;
@@ -9,7 +10,7 @@ namespace DomainTests
 {
     public class ReceiptTests
     {
-        ReceiptService receiptService = null;
+        IReceiptPrintingService<string> receiptService = null;
         ShoppingCart shoppingCart = null;
         ITaxingService taxingService = null;
 
@@ -18,7 +19,7 @@ namespace DomainTests
         {
             shoppingCart = new ShoppingCart();
             taxingService = new TaxingService();
-            receiptService = new ReceiptService(shoppingCart);
+            receiptService = new ReceiptConsolePrintingService(shoppingCart);
         }
 
         [Test]
@@ -35,7 +36,7 @@ namespace DomainTests
             taxingService.AssignTaxesTo(product);
             taxingService.CalculateTaxesFor(product);
             
-            var receipt = receiptService.GetReceipt();
+            var receipt = receiptService.PrintReceipt();
             
             StringAssert.Contains("Music CD: 16.49", receipt);
             StringAssert.Contains("Sales Taxes: 1.50", receipt);
@@ -65,7 +66,7 @@ namespace DomainTests
             taxingService.CalculateTaxesFor(product2);
 
 
-            var receipt = receiptService.GetReceipt();
+            var receipt = receiptService.PrintReceipt();
             
             StringAssert.Contains("Book: 24.98 (2 @ 12.49)", receipt);
             StringAssert.Contains("Sales Taxes: 0", receipt);
@@ -148,7 +149,7 @@ namespace DomainTests
             
 
             
-            var receipt = receiptService.GetReceipt();
+            var receipt = receiptService.PrintReceipt();
             
             foreach (var item in expectedItemsOnReceipt)
             {

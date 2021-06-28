@@ -1,4 +1,5 @@
 ﻿using Application.Interface.Services;
+using Application.Interfaces.Services;
 using Application.Services;
 using Domain;
 using Domain.Entities;
@@ -35,7 +36,7 @@ namespace ConsoleApp
 
             ITaxingService taxingService = new TaxingService();
             ShoppingCart shoppingCart = new ShoppingCart();
-            ReceiptService receiptService = new ReceiptService(shoppingCart);
+            var receiptService = new ReceiptConsolePrintingService(shoppingCart);
 
             foreach (var product in productList)
             {
@@ -44,7 +45,7 @@ namespace ConsoleApp
                 taxingService.CalculateTaxesFor(product);
             }
 
-            Console.WriteLine(receiptService.GetReceipt());
+            Console.WriteLine(receiptService.PrintReceipt());
 
         }
     }
