@@ -12,7 +12,7 @@ namespace Core
         public decimal TotalPrice => ShelfPrice + SaleTax;
         public Product(string name, decimal shelfPrice)
         {
-            Name = name;
+            Name = name.Trim();
             ShelfPrice = shelfPrice;
             Taxes = new List<TaxTypes>();
         }

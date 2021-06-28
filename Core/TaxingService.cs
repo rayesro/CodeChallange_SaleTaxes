@@ -47,7 +47,7 @@ namespace Core
 
             decimal decimalPart = (int)((saleTax - (int)saleTax) * 100); ;
 
-            if (decimalPart % 10 >= 5)
+            if (decimalPart % 10 > 5)
                 saleTax = (int)(saleTax) + (Math.Ceiling(decimalPart / 10) / 10);
             else if (decimalPart % 10 < 5)
                 saleTax = (int)(saleTax) + (Math.Floor(decimalPart / 10) / 10);
