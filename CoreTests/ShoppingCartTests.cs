@@ -1,8 +1,8 @@
-﻿using Core;
-using Core.Entities;
+﻿using Domain;
+using Domain.Entities;
 using NUnit.Framework;
 
-namespace CoreTests
+namespace DomainTests
 {
     public class ShoppingCartTests
     {

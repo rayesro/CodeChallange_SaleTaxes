@@ -1,11 +1,11 @@
-﻿using Core;
-using Core.Entities;
-using Core.Enums;
+﻿using Domain;
+using Domain.Entities;
+using Domain.Enums;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CoreTests
+namespace DomainTests
 {
     public class TaxCalulationTests
     {

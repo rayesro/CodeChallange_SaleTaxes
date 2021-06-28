@@ -1,5 +1,5 @@
-﻿using Core;
-using Core.Entities;
+﻿using Domain;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 

@@ -1,8 +1,8 @@
-﻿using Core.Entities;
+﻿using Domain.Entities;
 using System;
 using System.Text.RegularExpressions;
 
-namespace Core
+namespace Domain
 {
     public class InputHandlerService
     {

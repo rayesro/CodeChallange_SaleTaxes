@@ -1,7 +1,7 @@
-﻿using Core.Enums;
+﻿using Domain.Enums;
 using System.Collections.Generic;
 
-namespace Core.Entities
+namespace Domain.Entities
 {
     public class Product
     {

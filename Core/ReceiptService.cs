@@ -1,7 +1,7 @@
-﻿using Core.Entities;
+﻿using Domain.Entities;
 using System.Text;
 
-namespace Core
+namespace Domain
 {
     public class ReceiptService
     {
