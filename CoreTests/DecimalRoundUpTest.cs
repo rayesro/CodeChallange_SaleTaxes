@@ -25,9 +25,10 @@ namespace CoreTests
         public void Given_ATaxForAProduct_When_RoundUpTheSaleTax_Then_SaleTaxIsRoundedUpToNearest5Cents(Product product, decimal expectedTax)
         {
             //Arranged
+            var taxingService = new TaxingService();
             var tax = 0.1m;
             //Act
-            var roundesUpTax = product.RoundUpTaxes(tax);
+            var roundesUpTax = taxingService.RoundUpTax(product.ShelfPrice, tax);
             //Assert
             Assert.AreEqual(expectedTax, roundesUpTax);
         }

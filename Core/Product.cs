@@ -19,30 +19,13 @@ namespace Core
 
         public void AddTax(TaxTypes taxType)
         {
-            Taxes.Add(taxType);
+            if (!Taxes.Contains(taxType))
+                Taxes.Add(taxType);
         }
 
-        public void CalculateTax()
+        public void SetTaxes(decimal taxes)
         {
-            SaleTax = 0;
-            if (Taxes.Contains(TaxTypes.BASIC_SALE_TAX))
-                SaleTax += RoundUpTaxes(0.1m);
-            if (Taxes.Contains(TaxTypes.IMPORT_TAX))
-                SaleTax += RoundUpTaxes(0.05m);
-        }
-
-        public decimal RoundUpTaxes(decimal tax)
-        {
-            var saleTax = ShelfPrice * tax;
-
-            decimal decimalPart = (int)((saleTax - (int)saleTax) * 100); ;
-
-            if (decimalPart % 10 >= 5)
-                saleTax = (int)(saleTax) + (Math.Ceiling(decimalPart / 10) / 10);
-            else if (decimalPart % 10 < 5)
-                saleTax = (int)(saleTax) + (Math.Floor(decimalPart / 10) / 10);
-
-            return Math.Round(saleTax, 2);
+            SaleTax = taxes;
         }
     }
 }
