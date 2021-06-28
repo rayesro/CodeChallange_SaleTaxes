@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Core.Enums;
+using System.Collections.Generic;
 
 namespace Core.Entities
 {

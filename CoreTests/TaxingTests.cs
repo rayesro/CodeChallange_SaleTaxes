@@ -1,5 +1,6 @@
 ﻿using Core;
 using Core.Entities;
+using Core.Enums;
 using NUnit.Framework;
 using System.Collections.Generic;
 
