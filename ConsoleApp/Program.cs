@@ -1,4 +1,6 @@
-﻿using Domain;
+﻿using Application.Interface.Services;
+using Application.Services;
+using Domain;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -31,7 +33,7 @@ namespace ConsoleApp
                 productList.Add(product);
             }
 
-            TaxingService taxingService = new TaxingService();
+            ITaxingService taxingService = new TaxingService();
             ShoppingCart shoppingCart = new ShoppingCart();
             ReceiptService receiptService = new ReceiptService(shoppingCart);
 

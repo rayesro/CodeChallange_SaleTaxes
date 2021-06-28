@@ -1,4 +1,6 @@
-﻿using Domain;
+﻿using Application.Interface.Services;
+using Application.Services;
+using Domain;
 using Domain.Entities;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ namespace DomainTests
     {
         ReceiptService receiptService = null;
         ShoppingCart shoppingCart = null;
-        TaxingService taxingService = null;
+        ITaxingService taxingService = null;
 
         [SetUp]
         public void Setup()

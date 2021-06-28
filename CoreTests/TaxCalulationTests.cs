@@ -1,4 +1,6 @@
-﻿using Domain;
+﻿using Application.Interface.Services;
+using Application.Services;
+using Domain;
 using Domain.Entities;
 using Domain.Enums;
 using NUnit.Framework;
@@ -9,7 +11,7 @@ namespace DomainTests
 {
     public class TaxCalulationTests
     {
-        TaxingService taxingService = null;
+        ITaxingService taxingService = null;
 
         [SetUp]
         public void Setup()

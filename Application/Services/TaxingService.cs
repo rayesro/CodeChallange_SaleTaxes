@@ -1,12 +1,13 @@
-﻿using Domain.Entities;
+﻿using Application.Interface.Services;
+using Domain.Entities;
 using Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Domain
+namespace Application.Services
 {
-    public class TaxingService
+    public class TaxingService : ITaxingService
     {
         private List<string> nonTaxedProducts;
         private Dictionary<TaxTypes, decimal> taxPercentages;
@@ -21,7 +22,6 @@ namespace Domain
             taxPercentages.Add(TaxTypes.BASIC_SALE_TAX, 0.1m);
             taxPercentages.Add(TaxTypes.IMPORT_TAX, 0.05m);
         }
-
         public void AssignTaxesTo(Product product)
         {
             if (product.Name.ToLower().Contains("imported"))
