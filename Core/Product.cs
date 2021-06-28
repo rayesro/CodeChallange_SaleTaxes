@@ -5,12 +5,14 @@ namespace Core
 {
     public class Product
     {
+        public string Name { get; private set; }
         public decimal ShelfPrice { get; private set; }
         public decimal SaleTax { get; private set; }
         public List<TaxTypes> Taxes { get; private set; }
         public decimal TotalPrice => ShelfPrice + SaleTax;
-        public Product( decimal shelfPrice)
+        public Product(string name, decimal shelfPrice)
         {
+            Name = name;
             ShelfPrice = shelfPrice;
             Taxes = new List<TaxTypes>();
         }

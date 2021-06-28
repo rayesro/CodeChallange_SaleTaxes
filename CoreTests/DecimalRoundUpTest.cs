@@ -9,14 +9,14 @@ namespace CoreTests
         public static IEnumerable<TestCaseData> RoundUpTaxProducts()
         {
             //Ceil
-            yield return new TestCaseData(new Product(14.99m), 1.5m);
-            yield return new TestCaseData(new Product(5.60m), 0.6m);
-            yield return new TestCaseData(new Product(106.60m), 10.7m);
+            yield return new TestCaseData(new Product("Shiny thing",14.99m), 1.5m);
+            yield return new TestCaseData(new Product("Shiny thing",5.60m), 0.6m);
+            yield return new TestCaseData(new Product("Shiny thing",106.60m), 10.7m);
             //Floor
-            yield return new TestCaseData(new Product(4.49m), 0.4m);
-            yield return new TestCaseData(new Product(53.25m), 5.3m);
-            yield return new TestCaseData(new Product(221.40m), 22.1m);
-            yield return new TestCaseData(new Product(25.50m), 2.6m);
+            yield return new TestCaseData(new Product("Shiny thing",4.49m), 0.4m);
+            yield return new TestCaseData(new Product("Shiny thing",53.25m), 5.3m);
+            yield return new TestCaseData(new Product("Shiny thing",221.40m), 22.1m);
+            yield return new TestCaseData(new Product("Shiny thing",25.50m), 2.6m);
 
         }
 
