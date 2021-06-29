@@ -1,45 +1,41 @@
-﻿using Core;
-using System;
-using System.Collections.Generic;
+﻿using Application.Interface.Services;
+using Application.Interfaces.Repositories;
+using Application.Interfaces.Services;
+using Application.Services;
+using Infrastructure.Memory.Repositories;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            List<string> input = new List<string>();
+            var hostBuilder = CreateHostBuilder(args);
 
-            Console.WriteLine("Input your products...Enter x to finish");
-            do
-            {
-                var cmdInput = Console.ReadLine();
-                if (cmdInput == "X" || cmdInput == "x")
-                    break;
-                input.Add(cmdInput);
-            } while (true);
-
-            InputHandlerService inputHandlerService = new InputHandlerService();
-
-            var productList = new List<Product>();
-            foreach (var item in input)
-            {
-                var product = inputHandlerService.GetProductFromInput(item);
-                if (product == null)
-                    continue;
-                productList.Add(product);
-            }
-
-            TaxingService taxingService = new TaxingService();
-            ReceiptService receiptService = new ReceiptService(taxingService);
-
-            foreach (var product in productList)
-            {
-                receiptService.AddProductToShoppingCart(product);
-            }
-
-            Console.WriteLine(receiptService.GetReceipt());
-
+            await hostBuilder.RunConsoleAsync();
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureServices((hostingContext, services) =>
+                {
+                    //Scans assemblies and adds handlers, preprocessors, and postprocessors implementations to the container.
+                    var assembly = System.AppDomain.CurrentDomain.Load("Application");
+                    services.AddMediatR(assembly);
+
+                    services.AddMediatR(Assembly.GetExecutingAssembly());
+
+                    services.AddSingleton<IHostedService, ConsoleApp>();
+                    services.AddTransient<IInputHandlerService<string>, ConsoleInputHandlerService>();
+                    services.AddTransient<ITaxingService, TaxingService>();
+                    services.AddSingleton<IShoppingCartRepository, ShoppingCartRepository>();
+                    services.AddSingleton<IReceiptPrintingService<string>, ReceiptConsolePrintingService>();
+                    services.AddTransient<Ticketizonator>();
+                });
     }
 }

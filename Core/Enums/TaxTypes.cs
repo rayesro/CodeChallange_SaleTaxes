@@ -1,4 +1,4 @@
-﻿namespace Core
+﻿namespace Domain.Enums
 {
     public enum TaxTypes
     {

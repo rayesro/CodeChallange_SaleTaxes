@@ -1,4 +1,4 @@
-﻿namespace Core
+﻿namespace Domain.Entities
 {
     public class ShoppingCartItem
     {

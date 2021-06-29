@@ -1,8 +1,11 @@
-﻿using Core;
+﻿using Application.Services;
+using Domain;
+using Domain.Entities;
+using Domain.Enums;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace CoreTests
+namespace DomainTests
 {
     public class TaxingTests
     {

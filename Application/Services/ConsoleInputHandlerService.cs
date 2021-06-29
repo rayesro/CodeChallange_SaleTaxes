@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Application.Interfaces.Services;
+using Domain.Entities;
+using System;
 using System.Text.RegularExpressions;
 
-namespace Core
+namespace Application.Services
 {
-    public class InputHandlerService
+    public class ConsoleInputHandlerService : IInputHandlerService<string>
     {
         public Product GetProductFromInput(string input)
         {
             string pattern = @"^[0-9](.+)at\s([0-9]{1,4}[.][0-9]{1,4})";
             Regex rg = new Regex(pattern);
-            // Get all matches  
             MatchCollection matches = rg.Matches(input);
             if (matches.Count == 0)
                 return null;
